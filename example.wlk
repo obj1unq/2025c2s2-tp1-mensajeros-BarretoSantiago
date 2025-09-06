@@ -1,32 +1,47 @@
 object paquete{
     var pago = false 
+    var destino = null
+    var persona = null
 	method pagar(){
-		pago = true
+		pago = true //tendria que un metodo que haga falso el pago
 	}
+  method destino(direccion){
+    destino = direccion
+  }
+  method mensajero(_persona)  {
+    persona = _persona
+  }
 	method estado() = pago
 	method puedeSerEntregado(){
-		
+		return pago && destino.puedePasar(persona)
 	}
 }
 
 
 
 object puenteBrooklyn{
-    method puedePasar(kilosPersona){
-        return not kilosPersona <= 1000
+  var pasa = false //esta variable puede no existir
+    method puedePasar(persona){
+        pasa = persona.peso() <= 1000
+        return pasa
     }
+    /*method puedePasar(){
+        return pasa
+    }*/
 }
 
 object laMatrix{
-    method puedeLlamar(persona){
-        return persona.puedeLlamar 
+    method puedePasar(persona){
+        return persona.puedeLlamar()
     }
-
-
+    /*method puedePasar(){
+        return self.puedeLlamar(persona)
+    }
+*/
 }
 
 object jeanGray {
-    var  kilaje = 65 
+    const  kilaje = 65 
     method puedeLlamar(){
         return true 
     }
@@ -36,9 +51,9 @@ object jeanGray {
 
 }
 
-object Neo {
-    var kilaje = 0
-    var credito = true 
+object neo {
+    const kilaje = 0
+    var credito = false 
     method puedeLlamar(){
         return credito 
     }
@@ -52,10 +67,14 @@ object Neo {
 }
 
 object saraConnor {
+  var kilaje = 0
+  const sara = 70
   method calcularPeso(vehiculo){
-    return 60 + vehiculo.peso()
+     kilaje = 0 
+     kilaje = kilaje + vehiculo.peso()
   }
   method puedeLlamar() = false
+  method peso() = kilaje + sara
 }
 object moto {
   const kilaje = 100
@@ -66,7 +85,6 @@ object camion {
   var acoplados = 0
   method cantidadAcoplados(numeroAcoplados){
 	acoplados = numeroAcoplados
-	return acoplados
   }
   method peso(){
 	return peso + peso*acoplados
